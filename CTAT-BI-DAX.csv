@@ -1,0 +1,3481 @@
+MEASUREGROUP_NAME,MEASURE_NAME,EXPRESSION,__Default measure,1__MT,Slicer_Airport,"IF ( ISFILTERED ( zH_Airport[Airport] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_Area,"IF ( ISFILTERED ( History[Area] ), __MT[S_Select],__MT[S_Clear])"__MT,Legs,"VAR size = [_width1]
+    VAR zRows =
+        CALCULATE (
+            COUNTROWS ( Position ),
+            Position[60Min] > 0
+        )
+    VAR Date_DIF =
+        (
+            DATEDIFF (
+                MIN ( zH_Calendar[Date] ),
+                MAX ( zH_Calendar[Date] ),
+                DAY
+            ) + 1
+        ) * 1
+    RETURN
+        IF (
+            [_flag] = 999,
+            size,
+            zRows / Date_Dif
+        )"__MT,Facility-AC,"VAR zType = ""AC""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-AT,"VAR zType = ""AT""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-GA,"VAR zType = ""GA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-MI,"VAR zType = ""MI""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TT-Facility_Total_Ops,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_AC"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""AC"" },
+                     History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } 
+                ),
+            ""@_AT"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""AT"" },
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } 
+                ),
+            ""@_GA"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""GA"" },
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } 
+                ),
+            ""@_MI"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""MI"" },
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } 
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_AC] ) 
+  + MAXX ( ValuesDisplayed, [@_AT] )
+  + MAXX ( ValuesDisplayed, [@_GA] )
+  + MAXX ( ValuesDisplayed, [@_MI] )
+RETURN
+    MaxVal"__MT,Days_,"VAR size = [_width1]
+VAR DMin = MIN ( zH_Calendar[Date] )
+VAR
+Result =
+    DATEDIFF ( DMin, MAX ( zH_Calendar[Date] ), DAY ) + 1
+
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,P-Long-Leg,"VAR size = [_width1]
+VAR xmax =
+    MAX ( Position[Leg_Time] )
+VAR zHour =
+    INT ( DIVIDE ( MAX ( Position[Leg_Time] ), 60 ) )
+VAR zMin =
+    MAX ( Position[Leg_Time] )- ( INT ( zHour ) * 60 )
+VAR Display_Hour =
+    IF ( INT ( zHour ) = 0, 0, zHour )
+VAR Display_Min =
+    IF ( LEN ( zMin ) = 1, ""0"" & zMIN, zMin )
+VAR Result = Display_Hour & "":"" & Display_Min
+RETURN
+IF ( [_flag] = 999, size, Result )"__MT,TT-Facility_AC,"VAR ztype = ""AC""
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ztype,
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }        
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    """" & ztype &""  "" & MaxVal"__MT,TT-Facility_AT,"VAR ztype = ""AT""
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ztype,
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }        
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    """" & ztype &""  "" & MaxVal"__MT,TT-Facility_GA,"VAR ztype = ""GA""
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ztype,
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }        
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    """" & ztype &""  "" & MaxVal"__MT,TT-Facility_MI,"VAR ztype = ""MI""
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ztype,
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }        
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    """" & ztype &""  "" & MaxVal"__MT,TT-FacilityCMax-V_Date,"VAR D_Last_Inhibit =
+    // see Date_Last need to breal sync with Slicer
+    FORMAT (
+        MAX ( zH_Calendar[Date] ),
+        ""m/d/yyyy""
+    )
+VAR D_First =
+    // 
+    MINX (
+        ALL ( 'zH_Calendar'[Date] ),
+        FORMAT ( LASTDATE ( zH_Calendar[Date] ), ""m/d/YYYY"" )
+    )
+VAR D_Last =
+    MAXX (
+        ALL ( 'zH_Calendar'[Date] ),
+        FORMAT ( LASTDATE ( zH_Calendar[Date] ), ""m/d/YYYY"" )
+    )
+VAR xMax_Keep =
+    MAXX (
+        KEEPFILTERS ( VALUES ( 'zH_Calendar'[Date] ) ),
+        CALCULATE ( COUNTA ( 'History'[Callsign] ) )
+    )
+VAR xMax_ALL =
+    MAXX (
+        ALL ( 'zH_Calendar'[Date] ),
+        CALCULATE ( COUNTA ( 'History'[Callsign] ) )
+    )
+RETURN
+    "" Keep>"" & xMax_Keep & "" ALL>"" & xMax_ALL"__MT,Date_First,"FORMAT ( MIN ( zH_Calendar_Year[Date] ), ""m/d/YYYY"" )"__MT,TT-Facility-MAX-Switch,"VAR MaxVal =
+    MAXX (
+        KEEPFILTERS ( VALUES ( 'zH_Calendar'[Date] ) ),
+        CALCULATE ( COUNTA ( 'History'[Callsign] ) )
+    )
+VAR MinVal =
+    MINX (
+        KEEPFILTERS ( VALUES ( 'zH_Calendar'[Date] ) ),
+        CALCULATE ( COUNTA ( 'History'[Callsign] ) )
+    )
+VAR CurrentVal =
+    CALCULATE ( COUNTA ( History[Category] ) )
+VAR Result =
+    SWITCH ( TRUE (), CurrentVal = MinVal, 1, Currentval = MaxVal, 2 )
+VAR Card = MinVal & ""/"" & MAXVAL
+RETURN
+    Result"__MT,P-Avg-Leg,"VAR size = [_width1]
+ --VAR zHour = SUMX(Position,Position[Leg Time]*3600 )
+VAR ztime =
+    CALCULATE (
+        SUM ( Position[Leg_Time] )
+    )
+VAR zlegs =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[Leg] > 0
+    )
+VAR Result =
+    DIVIDE (
+        ztime,
+        zlegs
+    ) * .01
+RETURN
+    IF (
+        [_flag] = 999,
+        size,
+        Result
+    )"__MT,Facility-AC_ALL,"VAR zType = ""AC""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-AT-ALL,"VAR zType = ""AT""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-MI_ALL,"VAR zType = ""MI""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-GA_ALL,"VAR zType = ""GA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-VFR,"VAR zType = ""VFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-IFR,"VAR zType = ""IFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-IPA,"VAR zType = ""IPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-VPA,"VAR zType = ""VPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-IFR_ALL,"VAR zType = ""IFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-VFR_ALL,"VAR zType = ""VFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-IPA_ALL,"VAR zType = ""IPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-VPA_ALL,"VAR zType = ""VPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TT-Facility_IFR,"VAR ztype = ""IFR""
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ztype,
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }        
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    """" & ztype &""  "" & MaxVal"__MT,TT-Facility_VFR,"VAR ztype = ""VFR""
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ztype,
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }        
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    """" & ztype &""  "" & MaxVal"__MT,TT-Facility_IPA,"VAR ztype = ""IPA""
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ztype,
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }        
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    """" & ztype &""  "" & MaxVal"__MT,TT-Facility_VPA,"VAR ztype = ""VPA""
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ztype,
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" } ||
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }        
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    """" & ztype &""  "" & MaxVal"__MT,Slicer_Calendar_Date,"IF ( ISFILTERED ( zH_Calendar[Date] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_Day,"IF ( ISFILTERED ( Day[Day] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_Hour,"IF ( ISFILTERED ( '60Min'[60Min] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_Month,"IF ( ISFILTERED ( Month[Month] ), __MT[S_Select],__MT[S_Clear])"__MT,Days_X,"VAR DMin = MIN ( 'zH_Calendar_Year'[Date] )
+VAR
+Result =
+    DATEDIFF ( DMin, MAX ( 'zH_Calendar_Year'[Date] ), DAY ) + 1
+RETURN
+    Result"__MT,Date_Last,"FORMAT ( MAX ( zH_Calendar[Date] ), ""m/d/yyyy"" )"__MT,Slicer_IFR\VFR,"IF ( ISFILTERED ( 'IFR/VFR'[Rules] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_Category,"IF ( ISFILTERED ( Category[Category] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_ADE,"IF ( ISFILTERED ( ADE[ADE] ), '__MT'[S_Select], '__MT'[S_Clear] )"__MT,__List of Airport values,"VAR //A A A//
+//B B B//
+comment = ""comment""
+VAR __DISTINCT_VALUES_COUNT =
+    DISTINCTCOUNT ( 'History'[Airport] )
+VAR __MAX_VALUES_TO_SHOW = 5
+RETURN
+    IF (
+        __DISTINCT_VALUES_COUNT > __MAX_VALUES_TO_SHOW,
+        CONCATENATE (
+            CONCATENATEX (
+                TOPN (
+                    __MAX_VALUES_TO_SHOW,
+                    VALUES ( 'History'[Airport] ),
+                    'History'[Airport], ASC
+                ),
+                'History'[Airport],
+                "", "",
+                'History'[Airport], ASC
+            ),
+            "", etc.""
+        ),
+        CONCATENATEX (
+            VALUES ( 'History'[Airport] ),
+            'History'[Airport],
+            "", "",
+            'History'[Airport], ASC
+        )
+    )"__MT,__Title_Airport,"VAR //A A A//
+//B B B//
+comment = ""comment""
+VAR Result =
+    CONCATENATEX (
+        VALUES ( History[Airport] ),
+        History[Airport],
+        "","",
+        History[Airport], ASC
+    )
+RETURN
+    Result"__MT,__Title_Many,"VAR //A A A//
+//B B B//
+comment = ""comment""
+VAR Result =
+    CONCATENATEX ( VALUES ( 'IFR/VFR'[Rules] ), 'IFR/VFR'[Rules], "","", 'IFR/VFR'[Rules], ASC )
+RETURN
+    Result"__MT,Date_Max,"MAXX (
+    ALL ( 'zH_Calendar'[Date] ),
+    FORMAT ( LASTDATE ( hISTORY[Date] ), ""m/d/YYYY"" )
+)"__MT,Date_Min,"VAR //A Identify First Date in Data_Calendar A//
+Result =
+    MINX (
+        ALL ( 'zH_Calendar'[Date] ),
+        FORMAT ( LASTDATE ( zH_Calendar[Date] ), ""m/d/YYYY"" )
+    )
+RETURN
+    Result"__MT,Date_Min_Slicer,"MINX (
+    ALLSELECTED ( 'zH_Calendar'[Date] ),
+    FORMAT ( LASTDATE ( zH_Calendar[Date] ), ""m/d/YYYY"" )
+)"__MT,Total_Limited_by_Slicer,"VAR Result =
+    //A Total of a Category limited by Slicer Selections A//
+    //B Archive
+    // Change the string in History[Category] from ""AC""   to AT GA or MI for a diffferent Category 
+    // Change selected field and string to Total other Field/category combinations
+    // Eg.History[Rules]=IFR Totals Rules IFR  B//
+    CALCULATE (
+        COUNT ( History[Category] ),
+        History[Category] = ""AC""
+    )
+RETURN
+    Result"__MT,zAB,"CALCULATE (
+    COUNT ( History[Category] ),
+    FILTER ( ALL ( History ), History[date] = MAX ( zH_Calendar[Date] ) )
+)"__MT,zAC,"CALCULATE (
+    COUNT ( History[Category] ),
+    FILTER ( ALL ( History ), MAX ( zH_Calendar[date] ) )
+)"__MT,zC_,"VAR //A Find Min and Max Values of History[Callsign to identify Min/MAX of Total Count  KEEPFILTERS limits result by Date_Calendar[Date] Slicer selections A//
+//B Total Date > Matrix > Multi-card Header line  2 Slicer B// 
+comment = ""comment""
+VAR MaxVal =
+    MAXX (
+        KEEPFILTERS ( VALUES ( 'zH_Calendar'[Date] ) ),
+        CALCULATE ( COUNTA ( 'History'[Callsign] ) )
+    )
+VAR MinVal =
+    MINX (
+        KEEPFILTERS ( VALUES ( 'zH_Calendar'[Date] ) ),
+        CALCULATE ( COUNTA ( 'History'[Callsign] ) )
+    )
+VAR Card = MinVal & ""/"" & MAXVAL
+RETURN
+    Card"__MT,zC-AC_Z,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"", CALCULATE ( COUNT ( History[Category] ), History[Category] = ""AC"" )
+        ),
+        ALLSELECTED () // Use to include Slicer limits
+    ) // VAR ValuesDisplayedAll =            // Max Value of AC with Slicer Dates
+// CALCULATETABLE(
+// ADDCOLUMNS(
+// SUMMARIZE(History,Data_Calendar[Date],History[Category]),
+// ""@CAT_Total_All"",CALCULATE(Count(History[Category]),History[Category] = ""AC"")
+// ),
+// ALL()                               // Use to ignore Slicer limits
+// )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@CAT_Total] ) // ALLSELECTED Limit by Slicer Settings  
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] ) // ALLSELECTED Limit by Slicer Settings
+// VAR MinvalAll = MINX(ValuesDisplayedAll,[@CAT_Total_All])     // ALL         Ignore Slicer Settings
+// VAR MaxValAll = MAXX(ValuesDisplayedAll, [@CAT_Total_All])    // ALL         Ignore Slicer Settings
+VAR Card = MinVal & ""/"" & MAXVAL // Set values for card to determine what to display
+// VAR Card = MinValAll &""/"" &MAXVALAll  // Set values for card to determine what to display
+RETURN
+    Card"__MT,zC-Total,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"", CALCULATE ( COUNT ( History[Category] ), zH_Calendar[Date] )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@CAT_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+VAR CurrentVal =
+    COUNT ( History[Category] )
+VAR Result =
+    SWITCH ( TRUE (), CurrentVal = MinVal, 1, Currentval = MaxVal, 2 )
+VAR Card = MinVal & ""/"" & MaxVAL
+RETURN
+    Card"__MT,Max_Val,"VAR xMax = 
+    MAXX(
+        KEEPFILTERS(VALUES('zH_Calendar'[Date])),
+        CALCULATE(COUNTA('History'[Callsign])))
+    Return
+    xMax"__MT,S_Clear,"""#FFFFFF"""__MT,S_Select,"""#FFD180"""__MT,Min_Val,"VAR xMin = 
+    MinX(
+        KEEPFILTERS(VALUES('zH_Calendar'[Date])),
+        CALCULATE(COUNTA('History'[Callsign])))
+    Return
+    xMin"__MT,Switch,BLANK()__MT,Day_Val,CALCULATE(COUNTA('History'[Callsign]))__MT,M3,"""123"""__MT,M4,"""123"""__MT,m5,"""123"""__MT,_Total_Tower,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Callsign] ),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Selected-Airports,"VAR _DT = DISTINCTCOUNT(zH_Airport[Airport])
+VAR _Show = 5
+Return
+    If(isfiltered(zH_Airport[Airport]),
+    If (_DT > _Show,
+        CONCATENATE(
+            ""Operations for  ""&
+            CONCATENATEX(
+                TOPN(
+                _Show,
+                    VALUES(zH_Airport[Airport]),
+                    zH_Airport[Airport],
+                    // DESC
+                ),
+                zH_Airport[Airport],
+                "", "",
+                zH_Airport[Airport],               
+                ),
+                "", etc.""               
+            ),
+            ""Operations for  ""&
+            CONCATENATEX(
+                VALUES(zH_Airport[Airport]),
+                zH_Airport[Airport],
+                "", "",
+                zH_Airport[Airport],
+                // DESC
+        )  ),
+""Operations at ALL Airports""
+    )"__MT,Facility-ALL,"VAR zType = ""Total""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] IN { ""AC"", ""AT"", ""GA"", ""MI"" },
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" })
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Facility-ALL-ALL,"VAR zType = ""Total""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] IN { ""AC"", ""AT"", ""GA"", ""MI"" },
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } ||
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" })
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Slicer_Position,"IF ( ISFILTERED ( Position[Position] ), __MT[S_Select],__MT[S_Clear])"__MT,MAX_,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"", CALCULATE ( COUNT ( History[Category] ), History[RDR] IN{""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""K"",""M"",""O""},History[Twr] IN {""A"",""C"", ""E"",""F"",""G""} )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""AC  "" & MaxVal"__MT,TRACON_AT,"VAR xx = ""AT""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[Category] = xx,
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,TRACON_GA,"VAR xx = ""GA""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[Category] = xx,
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,TRACON_MI,"VAR xx = ""MI""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[Category] = xx,
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,TRACON_ARR,"VAR xx = ""A""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[ADE]),
+        History[ADE],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[ADE] = xx,
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,TRACON_DEP,"VAR xx = ""D""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[ADE]),
+        History[ADE],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[ADE] = xx,
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,TRACON_OVR,"VAR xx = ""E""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[ADE]),
+        History[ADE],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[ADE] = xx,
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,TRACON_IFR,"VAR xx = ""I""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Rules]),
+        History[Rules],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Rules])),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[Rules] IN { ""IFR"", ""IPA"" },
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,TRACON_VFR,"VAR xx = ""V""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Rules]),
+        History[Rules],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Rules])),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[Rules] IN { ""VFR"", ""VPA"" },
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,_Total_TRACON,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,_Total_Facility,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        FILTER ( History, NOT ISBLANK ( History[ADE] ) ),
+        History[Twr] = { ""A"" } || History[Twr] = { ""C"" } || History[Twr] = { ""E"" } || History[Twr] = { ""F"" } || History[Twr] = { ""G"" }
+     || History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" } || History[Rdr] = { ""C"" } || History[Rdr] = { ""E"" } || History[Rdr] = { ""G"" }
+     || History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" } || History[Rdr] = { ""K"" } || History[Rdr] = { ""M"" } || History[Rdr] = { ""N"" }
+     || History[Rdr] = { ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Area_AC,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Area])),
+        History[Category] = ""AC"",
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Area_AT,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Area])),
+        History[Category] = ""AT"",
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Area_GA,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Area])),
+        History[Category] = ""GA"",
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Area_MI,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Area])),
+        History[Category] = ""MI"",
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Area_IFR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[Rules])),
+        Filter(History,NOT ISBLANK(History[Area])),
+        History[Rules] IN { ""IFR"", ""IPA"" },
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Area_VFR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[Rules])),
+        Filter(History,NOT ISBLANK(History[Area])),
+        History[Rules] IN { ""VFR"", ""VPA"" },
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Area_ARR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[ARea])),
+        History[ADE] = ""A"",
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Area_DEP,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Area])),
+        History[ADE] = ""D"",
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Area_OVR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Area])),
+        History[ADE] = ""E"",
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,_Total_Area,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Callsign] ),
+        FILTER ( History, NOT ISBLANK ( History[Area] ) ),
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,_width1,"""a0123456781"""__MT,_flag,99__MT,Apt_IFR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Rules] ),
+        Filter(History,NOT ISBLANK(History[Rules])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Rules] IN { ""IFR"", ""IPA"" },
+        History[Twr] IN { ""A"", ""C"", ""E""}
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Apt_VFR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Rules] ),
+        Filter(History,NOT ISBLANK(History[Rules])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Rules] IN { ""VFR"", ""VPA"" },
+        History[Twr] IN { ""A"", ""C"", ""E""}
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Apt_AT,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Category] = ""AT"",
+        History[Twr] IN { ""A"", ""C"", ""E""}
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Apt_GA,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Category] = ""GA"",
+        History[Twr] IN { ""A"", ""C"", ""E""}
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Apt_ARR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[ADE] ),
+        Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[ADE] = ""A"",
+        History[Twr] IN { ""A"", ""C"", ""E""}
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Apt_OVR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[ADE] ),
+        Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[ADE] = ""E"",
+        History[Twr] IN { ""A"", ""C"", ""E""}
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Apt_DEP,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[ADE] ),
+        Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[ADE] = ""D"",
+        History[Twr] IN { ""A"", ""C"", ""E""}
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,_Total_Airport,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Callsign] ),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Twr] IN { ""A"", ""C"", ""E""}
+        )
+RETURN
+    IF (
+        [_flag] = 999,
+        size,
+        Result
+    )"__MT,Apt_AC,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Category] = ""AC"",
+        History[Twr] IN { ""A"", ""C"", ""E""}
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Apt_MI,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNT ( History[Category] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Category] = ""MI"",
+        History[Twr] IN { ""A"", ""C"", ""E""}
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Title-Runway-Airports,"VAR _DT = DISTINCTCOUNT(zH_Airport_Runway[APT])
+VAR _Show = 5
+Return
+    If(isfiltered(zH_Airport_Runway[APT]),
+    If (_DT > _Show,
+        CONCATENATE(
+             ""Runways Usage at  ""&
+            CONCATENATEX(
+                TOPN(
+                _Show,
+                    VALUES(zH_Airport_Runway[APT]),
+                    zH_Airport_Runway[APT],
+                    // DESC
+                ),
+                zH_Airport_Runway[APT],
+                "", "",
+                zH_Airport_Runway[APT],               
+                ),
+                "", etc.""               
+            ),
+            ""Runway Usage at  ""&
+            CONCATENATEX(
+                VALUES(zH_Airport_Runway[APT]),
+                zH_Airport_Runway[APT],
+                "", "",
+                zH_Airport_Runway[APT],
+                // DESC
+        )  ),
+""Select an Airport with No Airport Selected Displaying Total Runway Usage""
+    )"__MT,Sort_Facility,"VAR Result = [_Total_Facility]
+RETURN
+    IF (
+        [.Year] <> 1,
+        0,
+        IF (
+            Result > 0,
+            ( Result * __MT[.MaxVal] * 100000 ) + ( __MT[.Month] * 200 ) + __MT[.Day],
+            ( __MT[.Month] * 200 ) + __MT[.Day]
+        )
+    )"__MT,R_Facility,"VAR size = [_width1]
+VAR xTotal =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        History[Twr] = { ""A"" }
+            || History[Twr] = { ""C"" }
+            || History[Twr] = { ""E"" }
+            || History[Twr] = { ""F"" }
+            || History[Twr] = { ""G"" }
+            || History[Rdr] = { ""A"" }
+            || History[Rdr] = { ""B"" }
+            || History[Rdr] = { ""C"" }
+            || History[Rdr] = { ""E"" }
+            || History[Rdr] = { ""G"" }
+            || History[Rdr] = { ""H"" }
+            || History[Rdr] = { ""I"" }
+            || History[Rdr] = { ""K"" }
+            || History[Rdr] = { ""M"" }
+            || History[Rdr] = { ""N"" }
+            || History[Rdr] = { ""O"" },
+        ALL ( History[Airport] )
+    )
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        [Sort_Facility],
+        [Sort_Facility],
+        DESC,
+        DENSE
+    )
+RETURN
+    IF ( [_flag] = 999, size, IF ( xTotal = 0, """", Result ) )"__MT,Sort_TRACON,"VAR Result = [_Total_TRACON]
+RETURN
+    IF (
+        [.Year] <> 1,
+        0,
+        IF (
+            Result > 0,
+            ( Result * __MT[.MaxVal] * 100000 ) + ( __MT[.Month] * 200 ) + __MT[.Day],
+            ( __MT[.Month] * 200 ) + __MT[.Day]
+        )
+    )"__MT,R_Area,"VAR size = [_width1]
+VAR xTotal =
+    CALCULATE (
+        COUNT ( History[Callsign] ),
+        History[Rules] IN { ""IFR"", ""IPA"", ""VFR"", ""VPA"" },
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        [Sort_Area],
+        [Sort_Area],
+        DESC,
+        DENSE
+    )
+RETURN
+    IF ( [_flag] = 999, size, IF ( xTotal = 0, """", Result ) )"__MT,R-Tower,"VAR size = [_width1]
+VAR xTotal =
+    CALCULATE (
+        COUNT ( History[Callsign] ),
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        [Sort_Tower],
+        [Sort_Tower],
+        DESC,
+        DENSE
+    )
+RETURN
+    IF ( [_flag] = 999, size, IF ( xTotal = 0, """", Result ) )"__MT,Sort_Airport,"VAR Result = [_Total_Airport]
+RETURN
+    IF (
+        [.Year] <> 1,
+        0,
+        IF (
+            Result > 0,
+            ( Result * __MT[.MaxVal] * 100000 ) + ( __MT[.Month] * 200 ) + __MT[.Day],
+            ( __MT[.Month] * 200 ) + __MT[.Day]
+        )
+    )"__MT,R_Airport,"VAR size = [_width1]
+VAR xYear =
+    ( VALUES ( History[Year] ) ) - ( VALUES ( History[Year] ) ) + 1
+VAR xTotal =
+    CALCULATE (
+        COUNT ( History[Callsign] ),
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        [Sort_Airport],
+        [Sort_Airport],
+        DESC,
+        DENSE
+    )
+RETURN
+    IF ( [_flag] = 999, size, IF ( xYear = 1, Result, """" ) )"__MT,.Day,MIN ( zH_Calendar[Day_Number] )__MT,.Month,MIN ( zH_Calendar[Month_Number] )__MT,.MaxVal,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"", CALCULATE ( COUNT ( History[CallSign] ) )
+        ),
+        ALL ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+RETURN
+    MaxVal"__MT,TT-Tower_AC,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ""AC"",
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""AC  "" & MaxVal"__MT,TT-Tower_AT,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ""AT"",
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""AT  "" & MaxVal"__MT,TT-Tower_GA,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ""GA"",
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""GA  "" & MaxVal"__MT,TT-Tower_IFR,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ""IFR"",
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""IFR  "" & MaxVal"__MT,TT-Tower_IPA,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ""IPA"",
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""IPA "" & MaxVal"__MT,TT-Tower_MI,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ""MI"",
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""MI  "" & MaxVal"__MT,TT-Tower_VFR,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ""VFR"",
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""VFR  "" & MaxVal"__MT,TT-Tower_VPA,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ""VPA"",
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""VPA "" & MaxVal"__MT,TT-Tower_Total_Ops,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_AC"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""AC"" },
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                ),
+            ""@_AT"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""AT"" },
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                ),
+            ""@_GA"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""GA"" },
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                ),
+            ""@_MI"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""MI"" },
+                    History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_AC] ) 
+        + MAXX ( ValuesDisplayed, [@_AT] )
+        + MAXX ( ValuesDisplayed, [@_GA] )
+        + MAXX ( ValuesDisplayed, [@_MI] )
+RETURN
+    MaxVal"__MT,TRACON_AC,"VAR xx = ""AC""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[Category] = xx,
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,_Selected_Category,"Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )"__MT,Sort_Tower,"VAR Result = [_Total_Tower]
+RETURN
+    IF (
+        [.Year] <> 1,
+        0,
+        IF (
+            Result > 0,
+            ( Result * __MT[.MaxVal] * 1000000 ) + ( __MT[.Month] * 200 ) + __MT[.Day],
+            ( __MT[.Month] * 200 ) + __MT[.Day]
+        )
+    )"__MT,Tower_AC,"VAR xx = ""AC""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Category] = xx,
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Tower_AT,"VAR xx = ""AT""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Category] = xx,
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Tower_GA,"VAR xx = ""GA""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+         Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Category] = xx,
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Tower_MI,"VAR xx = ""MI""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+         Filter(History,NOT ISBLANK(History[Category])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Category] = xx,
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Tower_ARR,"VAR xx = ""A""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[ADE]),
+        History[ADE],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+         Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[ADE] = xx,
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Tower_DEP,"VAR xx = ""D""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[ADE]),
+        History[ADE],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+         Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[ADE] = xx,
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Tower_OVR,"VAR xx = ""E""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[ADE]),
+        History[ADE],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[ADE])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[ADE] = xx,
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Tower_IFR,"VAR xx = ""I""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Rules]),
+        History[Rules],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+         Filter(History,NOT ISBLANK(History[Rules])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Rules] IN { ""IFR"", ""IPA"" },
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Tower_VFR,"VAR xx = ""V""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Rules]),
+        History[Rules],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Rules])),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Rules] IN { ""VFR"", ""VPA"" },
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Facility_AC,"VAR xx = ""AC""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        History[Category] = xx,
+         History[Twr] = { ""A"" } || History[Twr] = { ""C"" } || History[Twr] = { ""E"" } || History[Twr] = { ""F"" } || History[Twr] = { ""G"" }
+      || History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" } || History[Rdr] = { ""C"" } || History[Rdr] = { ""E"" } || History[Rdr] = { ""G"" }
+      || History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" } || History[Rdr] = { ""K"" } || History[Rdr] = { ""M"" } || History[Rdr] = { ""N"" }
+      || History[Rdr] = { ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Facility_IFR,"VAR xx = ""I""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Rules]),
+        History[Rules],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Rules])),
+        History[Rules] IN { ""IFR"", ""IPA"" },
+        History[Twr] = { ""A"" } || History[Twr] = { ""C"" } || History[Twr] = { ""E"" } || History[Twr] = { ""F"" } || History[Twr] = { ""G"" }
+     || History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" } || History[Rdr] = { ""C"" } || History[Rdr] = { ""E"" } || History[Rdr] = { ""G"" }
+     || History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" } || History[Rdr] = { ""K"" } || History[Rdr] = { ""M"" } || History[Rdr] = { ""N"" }
+     || History[Rdr] = { ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Facility_ARR,"VAR xx = ""A""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[ADE]),
+        History[ADE],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+       Filter(History,NOT ISBLANK(History[ADE])),
+        History[ADE] = xx,
+         History[Twr] = { ""A"" } || History[Twr] = { ""C"" } || History[Twr] = { ""E"" } || History[Twr] = { ""F"" } || History[Twr] = { ""G"" }
+      || History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" } || History[Rdr] = { ""C"" } || History[Rdr] = { ""E"" } || History[Rdr] = { ""G"" }
+      || History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" } || History[Rdr] = { ""K"" } || History[Rdr] = { ""M"" } || History[Rdr] = { ""N"" }
+      || History[Rdr] = { ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,R_TRACON,"VAR size = [_width1]
+VAR xTotal =
+    CALCULATE (
+        COUNT ( History[Callsign] ),
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        [Sort_TRACON],
+        [Sort_TRACON],
+        DESC,
+        DENSE
+    )
+RETURN
+    IF ( [_flag] = 999, size, IF ( xTotal = 0, """", Result ) )"__MT,TT-TRACON_AC,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ""AC"",
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""AC  "" & MaxVal"__MT,TT-TRACON_AT,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ""AT"",
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""AT  "" & MaxVal"__MT,TT-TRACON_GA,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ""GA"",
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""GA  "" & MaxVal"__MT,TT-TRACOn_IFR,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ""IFR"",
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""IFR  "" & MaxVal"__MT,TT-TRACON_IPA,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ""IPA"",
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""IPA "" & MaxVal"__MT,TT-TRACON_MI,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] = ""MI"",
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""MI  "" & MaxVal"__MT,TT-TRACON_Total_Ops,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_AC"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""AC"" },
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                ),
+            ""@_AT"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""AT"" },
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                ),
+            ""@_GA"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""GA"" },
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                ),
+            ""@_MI"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""MI"" },
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_AC] ) 
+        + MAXX ( ValuesDisplayed, [@_AT] )
+        + MAXX ( ValuesDisplayed, [@_GA] )
+        + MAXX ( ValuesDisplayed, [@_MI] )
+RETURN
+    MaxVal"__MT,TT-TRACON_VFR,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ""VFR"",
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""VFR  "" & MaxVal"__MT,TT-TRACON_VPA,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Rules] ),
+            ""@CAT_Total"",
+                CALCULATE (
+                    COUNT ( History[Rules] ),
+                    History[Rules] = ""VPA"",
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@CAT_Total] )
+RETURN
+    ""VPA "" & MaxVal"__MT,.Year,"VAR Result =
+    CALCULATE ( COUNT ( History[Rules] ), ALL ( zH_Airport ) )
+RETURN
+    IF ( Result > 0, 1, 0 )"__MT,Slicer_Alpha,"IF ( ISFILTERED ( zH_Alpha[CSAlpha] ), __MT[S_Select],__MT[S_Clear])"__MT,L30_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[30Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[30Min]))
+    )
+RETURN
+    IF (
+        [_flag] = 999,
+        size,
+        Result
+    )"__MT,.No_Area,"If ([_Total_Area] <=100, ""Area Not Selected or Adapted"","""")"__MT,Slicer_Year,"IF ( ISFILTERED ( zH_Year[Year] ), __MT[S_Select],__MT[S_Clear])"__MT,Facility_ID,values(Facility_ID[Facility_ID])__MT,_mspace,""" / """__MT,_sspace,"""  """__MT,Min/Max_No_Filter,"""No Filter Min/Max"""__MT,Min/Max_Slicer,"""Min/Max after Slicer"""__MT,Sort_Area,"VAR Result = [_Total_Area]
+RETURN
+    IF (
+        [.Year] <> 1,
+        0,
+        IF (
+            Result > 0,
+            ( Result * __MT[.MaxVal] * 100000 ) + ( __MT[.Month] * 200 ) + __MT[.Day],
+            ( __MT[.Month] * 200 ) + __MT[.Day]
+        )
+    )"__MT,L15_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE ( COUNTROWS ( Position ) )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L60_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min]))
+    )
+RETURN
+    IF (
+        [_flag] = 999,
+        size,
+        Result
+    )"__MT,Slicer_RECAT,"IF ( ISFILTERED ( zH_RECAT_WC[RECAT] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_WC,"IF ( ISFILTERED ( zH_RECAT_WC[WC] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_P_Date,"IF ( ISFILTERED ( zP_Calendar[Date] ), __MT[S_Select],__MT[S_Clear])"__MT,Selected-Area,"VAR _DT = DISTINCTCOUNT(zH_Area[ZIF])
+VAR _Show = 1
+Return
+    If(isfiltered(zH_Area[ZIF]),
+    If (_DT > _Show,
+        CONCATENATE(
+            ""Operations for  ""&
+            CONCATENATEX(
+                TOPN(
+                _Show,
+                    VALUES(zH_Area[ZIF]),
+                    zH_Area[ZIF],
+                    // DESC
+                ),
+                zH_Area[ZIF],
+                "", "",
+                zH_Area[ZIF],               
+                ),
+                "", etc.""               
+            ),
+            ""Operations for  ""&
+            CONCATENATEX(
+                VALUES(zH_Area[ZIF]),
+                zH_Area[ZIF],
+                "", "",
+                zH_Area[ZIF],
+                // DESC
+        )  ),
+""""
+    )"__MT,L_60_NZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime]
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L_30_NZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[30Min] >=0,  
+        Filter(Position,NOT ISBLANK(Position[30Min])),  
+        Position[sTime] <> Position[eTime]
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L_15_NZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[sTime] <> Position[eTime]
+    )
+RETURN
+    IF (
+        [_flag] = 999,
+        size,
+        Result
+    )"__MT,P-Avg-Leg2,"VAR size = [_width1] --VAR zHour = SUMX(Position,Position[Leg Time]*3600 )
+VAR ztime =
+    CALCULATE ( SUM ( Position[Leg_Time2] ) )
+VAR zlegs =
+    CALCULATE ( COUNTROWS ( Position ), Position[Leg] > 0 )
+VAR Result =
+    DIVIDE ( ztime, zlegs ) * .01
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Legs copy,"VAR size = [_width1]
+VAR zRows =  
+CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[30Min]))
+    )
+      
+VAR Date_DIF =
+    (
+        DATEDIFF (
+            MIN ( zH_Calendar[Date] ),
+            MAX ( zH_Calendar[Date] ),
+            DAY
+        ) + 1
+    ) * 1
+RETURN
+    IF (
+        [_flag] = 999,
+        size,
+        zRows / Date_Dif
+    )"__MT,L_60_NZ_VFR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime],
+        Position[Rules] IN { ""VFR"", ""VPA"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L_60_NZ_IFR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime],
+        Position[Rules] IN { ""IFR"", ""IPA"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L_60_NZ_AC,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime],
+        Position[Category] = ""AC""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L_60_NZ_AT,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime],
+        Position[Category] = ""AT""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L_60_NZ_GA,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime],
+        Position[Category] = ""GA""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L_60_NZ_MI,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime],
+        Position[Category] = ""MI""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L_60_NZ_ARR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime],
+        Position[ADE] = ""A""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L_60_NZ_DEP,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime],
+        Position[ADE] = ""D""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L_60_NZ_OVR,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime],
+        Position[ADE] = ""E""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Sort_L60_NZ,"VAR Result = [L_60_NZ]
+
+RETURN
+    IF (
+            Result > 0,
+            ( Result * __MT[.MaxVal] * 100000 ) + ( __MT[.Month] * 200 ) + __MT[.Day],
+            ( __MT[.Month] * 200 ) + __MT[.Day]
+        )"__MT,R_L_60_NZ,"VAR size = [_width1]
+VAR xTotal =
+    CALCULATE (
+        COUNT ( Position[Callsign] ),
+        Position[Rules] IN { ""IFR"", ""IPA"", ""VFR"", ""VPA"" }
+    )
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        [Sort_L60_NZ],
+        [Sort_L60_NZ],
+        DESC,
+        DENSE
+    )
+RETURN
+    IF ( [_flag] = 999, size, IF ( xTotal = 0, """", Result ) )"__MT,.P_Year,"VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        FILTER ( Position, NOT ISBLANK ( Position[60Min] ) ),
+        Position[sTime] <> Position[eTime]
+    )
+RETURN
+    IF ( Result > 0, 1, 0 )"__MT,.MaxVal_P,"VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( Position, zP_Calendar[Date], Position[Category] ),
+            ""@_Total"", CALCULATE ( COUNT ( Position[CallSign] ) )
+        ),
+        ALL ()
+    )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+RETURN
+    MaxVal"__MT,Sort_L_60,"VAR Result = [L60_wZ]
+RETURN
+    IF (
+        [.Year] <> 1,
+        0,
+        IF (
+            Result > 0,
+            ( Result * __MT[.MaxVal] * 100000 ) + ( __MT[.Month] * 200 ) + __MT[.Day],
+            ( __MT[.Month] * 200 ) + __MT[.Day]
+        )
+    )"__MT,R_L60_wZ,"VAR size = [_width1]
+VAR xTotal =
+    CALCULATE (
+        COUNT ( Position[Callsign] ),
+        Filter(Position,NOT ISBLANK(Position[Category])),
+        Position[Rules] IN { ""IFR"", ""IPA"", ""VFR"", ""VPA"" }
+    )
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        [Sort_L60_wZ],
+        [Sort_L60_wZ],
+        DESC,
+        DENSE
+    )
+RETURN
+    IF ( [_flag] = 999, size, IF ( xTotal = 0, """", Result ) )"__MT,L60_AC_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[Category] = ""AC""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L60_ARR_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[ADE] = ""A""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L60_AT_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[Category] = ""AT""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L60_DEP_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[ADE] = ""D""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L60_GA_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[Category] = ""GA""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L60_IFR_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[Rules] IN { ""IFR"", ""IPA"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L60_MI_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[Category] = ""MI""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L60_OVR_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[ADE] = ""E""
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,L60_VFR_wZ,"VAR size = [_width1]
+VAR Result =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[Rules] IN { ""VFR"", ""VPA"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,MAX-R_L60_NZ,"VAR size = [_width1]
+VAR xTotal =
+    CALCULATE (
+        COUNT ( Position[Callsign] ),
+        Filter(Position,NOT ISBLANK(Position[Category])),
+        Position[Rules] IN { ""IFR"", ""IPA"", ""VFR"", ""VPA"" }
+    )
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        [Sort_L60_NZ],
+        [Sort_L60_NZ],
+        ASC,
+        DENSE
+    )
+
+VAR zResult = MAXX(VALUES('zH_Calendar'[Date]),Result)
+   
+RETURN
+    IF ( [_flag] = 999, size, IF ( xTotal = 0, """", zResult) )"__MT,Area-AC,"VAR zType = ""AC""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,                                                      
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-IPA,"VAR zType = ""IPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,                                                     
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-VFR,"VAR zType = ""VFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,                                                     
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-VPA,"VAR zType = ""VPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,                                                     
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-AT-ALL,"VAR zType = ""AT""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,                                                      
+                    --  History[Rules] = zType,                                                     
+                    --  History[ADE] = zType,                                                       
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    --  History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }                                 -- Tower
+                    --  History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }        -- TRACON
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-GA-ALL,"VAR zType = ""GA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,                                                      
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-IFR-ALL,"VAR zType = ""IFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,                                                     
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-IPA-ALL,"VAR zType = ""IPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,                                                     
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-MI-ALL,"VAR zType = ""MI""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,                                                      
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-VFR-ALL,"VAR zType = ""VFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,                                                     
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-VPA-ALL,"VAR zType = ""VPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,                                                     
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-ALL,"VAR zType = ""Total""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""AC"", ""AT"", ""GA"", ""MI"" },
+                    History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }  
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Area-ALL-ALL,"VAR zType = ""Total""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Category] ),
+                    History[Category] IN { ""AC"", ""AT"", ""GA"", ""MI"" },
+                    History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }  
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Sort_L60_wZ,"VAR Result = [L60_wZ]
+RETURN
+    IF (
+        [.Year] <> 1,
+        0,
+        IF (
+            Result > 0,
+            ( Result * __MT[.MaxVal] * 100000 ) + ( __MT[.Month] * 200 ) + __MT[.Day],
+            ( __MT[.Month] * 200 ) + __MT[.Day]
+        )
+    )"__MT,MAX-R_L60_wz,"VAR size = [_width1]
+VAR xTotal =
+    CALCULATE (
+        COUNT ( Position[Callsign] ),
+        Filter(Position,NOT ISBLANK(Position[Category])),
+        Position[Rules] IN { ""IFR"", ""IPA"", ""VFR"", ""VPA"" }
+    )
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        [Sort_L60_NZ],
+        [Sort_L60_NZ],
+        ASC,
+        DENSE
+    )
+
+VAR zResult = MAXX(VALUES('zH_Calendar'[Date]),Result)
+   
+RETURN
+    IF ( [_flag] = 999, size, IF ( xTotal = 0, """", zResult) )"__MT,R_NZ_RANK,"VAR size = [_width1]
+VAR xTotal =
+    CALCULATE (
+        COUNT ( Position[Callsign] ),
+        Position[Rules] IN { ""IFR"", ""IPA"", ""VFR"", ""VPA"" }
+    )
+VAR x_L_60_NZ =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min])),  
+        Position[sTime] <> Position[eTime]
+    )    
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        x_L_60_NZ,
+        x_L_60_NZ,
+        DESC,
+        DENSE
+    )
+VAR zResult = SUMX(Values(zH_Calendar[Date]),Result)    
+    
+RETURN
+    IF ( [_flag] = 999, size, IF ( xTotal = 0, """", zResult ) )"__MT,R_wZ_RANK,"VAR size = [_width1]
+VAR xTotal =
+    CALCULATE (
+        COUNT ( Position[Callsign] ),
+        Position[Rules] IN { ""IFR"", ""IPA"", ""VFR"", ""VPA"" }
+    )
+VAR x_L_60_wZ =
+    CALCULATE (
+        COUNTROWS ( Position ),
+        Position[60Min] >= 0,
+        Filter(Position,NOT ISBLANK(Position[60Min]))
+    )    
+VAR Result =
+    RANKX (
+        ALLSELECTED ( 'zH_Calendar'[Date] ),
+        x_L_60_wZ,
+        x_L_60_wZ,
+        DESC,
+        DENSE
+    )
+RETURN
+    IF ( [_flag] = 999, size, IF ( xTotal = 0, """", Result ) )"__MT,Slicer_Calendar_Date_Year,"IF ( ISFILTERED ( 'zH_Year'[Year] ), __MT[S_Select],__MT[S_Clear])"__MT,TT-TRACON-Min/MAX,"""121"""__MT,TRACON-AC,"VAR zType = ""AC""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-AC-ALL,"VAR zType = ""AC""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" } 
+                  )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-ALL,"VAR zType = ""Total""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Category] IN { ""AC"", ""AT"", ""GA"", ""MI"" },
+                    History[rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }  
+                )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-ALL-ALL,"VAR zType = ""Total""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Category] IN { ""AC"", ""AT"", ""GA"", ""MI"" },
+                    History[rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }  
+                )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-AT,"VAR zType = ""AT""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-AT-ALL,"VAR zType = ""AT""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-GA,"VAR zType = ""GA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-GA-ALL,"VAR zType = ""GA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-IFR,"VAR zType = ""IFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-IFR-ALL,"VAR zType = ""IFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-IPA,"VAR zType = ""IPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-IPA-ALL,"VAR zType = ""IPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-MI,"VAR zType = ""MI""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-MI-ALL,"VAR zType = ""GA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Category] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-VFR,"VAR zType = ""VFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-VFR-ALL,"VAR zType = ""VFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,TRACON-VPA,"VAR zType = ""VPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Slicer_Calendar_1Date,"IF ( ISFILTERED ( zH_Calendar[1Date] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_Scratch_1,"IF ( ISFILTERED ( History[Scr1] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_Type,"IF ( ISFILTERED ( History[Type] ), __MT[S_Select],__MT[S_Clear])"__MT,Slicer_Scratch_2,"If (ISFILTERED (History[Scr2]),__MT[S_Select],__MT[S_Clear])"__MT,Facility_AT,"VAR xx = ""AT""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        History[Category] = xx,
+         History[Twr] = { ""A"" } || History[Twr] = { ""C"" } || History[Twr] = { ""E"" } || History[Twr] = { ""F"" } || History[Twr] = { ""G"" }
+      || History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" } || History[Rdr] = { ""C"" } || History[Rdr] = { ""E"" } || History[Rdr] = { ""G"" }
+      || History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" } || History[Rdr] = { ""K"" } || History[Rdr] = { ""M"" } || History[Rdr] = { ""N"" }
+      || History[Rdr] = { ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Facility_GA,"VAR xx = ""GA""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        History[Category] = xx,
+         History[Twr] = { ""A"" } || History[Twr] = { ""C"" } || History[Twr] = { ""E"" } || History[Twr] = { ""F"" } || History[Twr] = { ""G"" }
+      || History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" } || History[Rdr] = { ""C"" } || History[Rdr] = { ""E"" } || History[Rdr] = { ""G"" }
+      || History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" } || History[Rdr] = { ""K"" } || History[Rdr] = { ""M"" } || History[Rdr] = { ""N"" }
+      || History[Rdr] = { ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Facility_MI,"VAR xx = ""MI""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Category]),
+        History[Category],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Category])),
+        History[Category] = xx,
+         History[Twr] = { ""A"" } || History[Twr] = { ""C"" } || History[Twr] = { ""E"" } || History[Twr] = { ""F"" } || History[Twr] = { ""G"" }
+      || History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" } || History[Rdr] = { ""C"" } || History[Rdr] = { ""E"" } || History[Rdr] = { ""G"" }
+      || History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" } || History[Rdr] = { ""K"" } || History[Rdr] = { ""M"" } || History[Rdr] = { ""N"" }
+      || History[Rdr] = { ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Facility_DEP,"VAR xx = ""D""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[ADE]),
+        History[ADE],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+       Filter(History,NOT ISBLANK(History[ADE])),
+        History[ADE] = xx,
+         History[Twr] = { ""A"" } || History[Twr] = { ""C"" } || History[Twr] = { ""E"" } || History[Twr] = { ""F"" } || History[Twr] = { ""G"" }
+      || History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" } || History[Rdr] = { ""C"" } || History[Rdr] = { ""E"" } || History[Rdr] = { ""G"" }
+      || History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" } || History[Rdr] = { ""K"" } || History[Rdr] = { ""M"" } || History[Rdr] = { ""N"" }
+      || History[Rdr] = { ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Facility_OVR,"VAR xx = ""E""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[ADE]),
+        History[ADE],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+       Filter(History,NOT ISBLANK(History[ADE])),
+        History[ADE] = xx,
+         History[Twr] = { ""A"" } || History[Twr] = { ""C"" } || History[Twr] = { ""E"" } || History[Twr] = { ""F"" } || History[Twr] = { ""G"" }
+      || History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" } || History[Rdr] = { ""C"" } || History[Rdr] = { ""E"" } || History[Rdr] = { ""G"" }
+      || History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" } || History[Rdr] = { ""K"" } || History[Rdr] = { ""M"" } || History[Rdr] = { ""N"" }
+      || History[Rdr] = { ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Facility_VFR,"VAR xx = ""V""
+VAR size = [_width1]
+VAR xSlicer= 
+Concatenatex(
+        Values(History[Rules]),
+        History[Rules],
+        )
+VAR Result =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Rules])),
+        History[Rules] IN { ""VFR"", ""VPA"" },
+        History[Twr] = { ""A"" } || History[Twr] = { ""C"" } || History[Twr] = { ""E"" } || History[Twr] = { ""F"" } || History[Twr] = { ""G"" }
+     || History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" } || History[Rdr] = { ""C"" } || History[Rdr] = { ""E"" } || History[Rdr] = { ""G"" }
+     || History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" } || History[Rdr] = { ""K"" } || History[Rdr] = { ""M"" } || History[Rdr] = { ""N"" }
+     || History[Rdr] = { ""O"" }
+    )
+ RETURN
+ IF (
+        [_flag] = 999,
+        size,
+    IF(CONTAINSSTRING(xSlicer,""*"" &xx &""*""),Result,""""))"__MT,Slicer_S1,"IF ( ISFILTERED ( History[S1] ), '__MT'[S_Select], '__MT'[S_Clear] )"__MT,Slicer_S2,"IF ( ISFILTERED ( History[S2] ), '__MT'[S_Select], '__MT'[S_Clear] )"__MT,Slicer_Entry,"IF ( ISFILTERED ( History[Entry] ), '__MT'[S_Select], '__MT'[S_Clear] )"__MT,Slicer_Exit,"IF ( ISFILTERED ( History[Exit] ), '__MT'[S_Select], '__MT'[S_Clear] )"__MT,Slicer_Runway,"IF ( ISFILTERED ( History[Runway] ), '__MT'[S_Select], '__MT'[S_Clear] )"__MT,Slicer_Beacon,"IF ( ISFILTERED ( History[Beacon] ), '__MT'[S_Select], '__MT'[S_Clear] )"__MT,Area-AT,"VAR zType = ""AT""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,                                                      
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-MI,"VAR zType = ""MI""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,                                                      
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-AC-ALL,"VAR zType = ""AC""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,                                                      
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-GA,"VAR zType = ""GA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Category] = zType,                                                      
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,Area-IFR,"VAR zType = ""IFR""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign] ),
+                    History[Rules] = zType,                                                     
+                    History[Area] IN {""A"",""B"",""C"",""E"",""G"",""H"",""I"",""K"",""M"",""O""}                      -- Area
+                    )
+        ),
+        ALLSELECTED ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Result = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Result"__MT,TRACON-VPA-ALL,"VAR zType = ""VPA""
+VAR mspace = [_mspace]
+VAR sspace = [_sspace]
+VAR ValuesDisplayed =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            SUMMARIZE ( History, zH_Calendar[Date], History[Category] ),
+            ""@_Total"",
+                CALCULATE (
+                    COUNT ( History[Callsign]),
+                    History[Rules] = zType,
+                    History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+                  )
+        ),
+        ALL ()
+    )
+VAR Minval =
+    MINX ( ValuesDisplayed, [@_Total] )
+VAR MaxVal =
+    MAXX ( ValuesDisplayed, [@_Total] )
+VAR Card = """" & zType & sspace & MinVal & mspace & MAXVAL
+RETURN
+    Card"__MT,Slicer_Callsign,"IF ( ISFILTERED ( History[Callsign] ), '__MT'[S_Select], '__MT'[S_Clear] )"__MT,Slicer_CSAlpha,"IF ( ISFILTERED ( History[CSAlpha] ), __MT[S_Select],__MT[S_Clear])"__MT,P_Days_X,"VAR DMin = MIN ( 'zP_Calendar'[Date] )
+VAR
+Result =
+    DATEDIFF ( DMin, MAX ( 'zP_Calendar'[Date] ), DAY ) + 1
+    
+RETURN
+    Result"__MT,P_Days,"VAR size = [_width1]
+VAR DMin = MIN ( zP_Calendar[Date] )
+VAR
+Result =
+    DATEDIFF ( DMin, MAX ( zP_Calendar[Date] ), DAY ) + 1
+
+RETURN
+    IF ( [_flag] = 999, size, Result )"__MT,Date_First_Position,"FORMAT ( MIN ( zP_Calendar[Date] ), ""m/d/YYYY"" )"__MT,Date_Last_ Position,"FORMAT ( MAX ( zP_Calendar[Date] ), ""m/d/yyyy"" )"__MT,Slicer_Calendar_Position_Date,"IF ( ISFILTERED ( zP_Calendar[Date] ), __MT[S_Select],__MT[S_Clear])"__MT,_Average_Airport,"VAR size = [_width1]
+VAR DMin =
+    MIN ( zH_Calendar[Date] )
+VAR Days =
+    DATEDIFF ( DMin, MAX ( zH_Calendar[Date] ), DAY ) + 1
+VAR Total =
+    CALCULATE (
+        COUNT ( History[Callsign] ),
+        FILTER ( History, NOT ISBLANK ( History[Twr] ) ),
+        History[Twr] IN { ""A"", ""C"", ""E"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Total / Days )"__MT,_Average_Area,"VAR size = [_width1]
+VAR DMin =
+    MIN ( zH_Calendar[Date] )
+VAR Days =
+    DATEDIFF ( DMin, MAX ( zH_Calendar[Date] ), DAY ) + 1
+VAR Total =
+    CALCULATE (
+        COUNT ( History[Callsign] ),
+        FILTER ( History, NOT ISBLANK ( History[Area] ) ),
+        History[Area] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Total / Days )"__MT,_Average_Facility,"VAR size = [_width1]
+VAR DMin =
+    MIN ( zH_Calendar[Date] )
+VAR Days =
+    DATEDIFF ( DMin, MAX ( zH_Calendar[Date] ), DAY ) + 1
+VAR Total =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        FILTER ( History, NOT ISBLANK ( History[ADE] ) ),
+        History[Twr] = { ""A"" } || History[Twr] = { ""C"" }  || History[Twr] = { ""E"" }  || History[Twr] = { ""F"" }  || History[Twr] = { ""G"" }  || 
+        History[Rdr] = { ""A"" } || History[Rdr] = { ""B"" }  || History[Rdr] = { ""C"" }  || History[Rdr] = { ""E"" }  || History[Rdr] = { ""G"" }  || 
+        History[Rdr] = { ""H"" } || History[Rdr] = { ""I"" }  || History[Rdr] = { ""K"" }  || History[Rdr] = { ""M"" }  || History[Rdr] = { ""N"" }  || 
+        History[Rdr] = { ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Total / Days )"__MT,_Average_Tower,"VAR size = [_width1]
+VAR DMin = MIN ( zH_Calendar[Date] )
+VAR Days = DATEDIFF ( DMin, MAX ( zH_Calendar[Date] ), DAY ) + 1
+VAR Total =
+    CALCULATE (
+        COUNT ( History[Callsign] ),
+        Filter(History,NOT ISBLANK(History[Twr])),
+        History[Twr] IN { ""A"", ""C"", ""E"", ""F"", ""G"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Total/Days )"__MT,_Average_TRACON,"VAR size = [_width1]
+VAR DMin = MIN ( zH_Calendar[Date] )
+VAR Days = DATEDIFF ( DMin, MAX ( zH_Calendar[Date] ), DAY ) + 1
+VAR Total =
+    CALCULATE (
+        COUNT ( History[CallSign] ),
+        Filter(History,NOT ISBLANK(History[Rdr])),
+        History[Rdr] IN { ""A"", ""B"", ""C"", ""E"", ""G"", ""H"", ""I"", ""K"", ""M"", ""O"" }
+    )
+RETURN
+    IF ( [_flag] = 999, size, Total/Days )"
